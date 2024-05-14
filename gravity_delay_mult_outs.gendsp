@@ -1,0 +1,271 @@
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 8,
+			"minor" : 6,
+			"revision" : 0,
+			"architecture" : "x64",
+			"modernui" : 1
+		}
+,
+		"classnamespace" : "dsp.gen",
+		"rect" : [ 34.0, 100.0, 1135.0, 809.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
+		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
+		"assistshowspatchername" : 0,
+		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 922.0, 575.0, 42.0, 22.0 ],
+					"text" : "out 10"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-12",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 825.0, 575.0, 35.0, 22.0 ],
+					"text" : "out 9"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-11",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 728.0, 575.0, 35.0, 22.0 ],
+					"text" : "out 8"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-10",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 631.0, 575.0, 35.0, 22.0 ],
+					"text" : "out 7"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-9",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 534.0, 575.0, 35.0, 22.0 ],
+					"text" : "out 6"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 437.0, 575.0, 35.0, 22.0 ],
+					"text" : "out 5"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-7",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 340.0, 575.0, 35.0, 22.0 ],
+					"text" : "out 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 243.0, 575.0, 35.0, 22.0 ],
+					"text" : "out 3"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-5",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 146.0, 575.0, 35.0, 22.0 ],
+					"text" : "out 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-3",
+					"linecount" : 4,
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 490.0, 101.0, 150.0, 60.0 ],
+					"text" : "https://physics.stackexchange.com/questions/256468/model-formula-for-bouncing-ball"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"code" : "require \"pitchshift.genexpr\"\r\n\r\ngetTap(index, delObj, timesBuf, ampsBuf, loudnessMode) {\r\n\tdelTime = peek(timesBuf, index);\r\n\tif(delTime) {\r\n\t\tamp = 1;\r\n\t\tif (loudnessMode == 0) {\r\n\t\t\tamp = peek(ampsBuf, index);\r\n\t\t} else if (loudnessMode == 1) {\r\n\t\t\tamp = peek(ampsBuf, dim(ampsBuf) - index - 1);\r\n\t\t}\r\n\t\treturn delObj.read(delTime) * amp;\r\n\t\t//return pitchshift(delObj.read(delTime) * amp, index*0.1, pitchshiftWindow, pitchshiftBlur);\r\n\t} else {\r\n\t\treturn 0;\r\n\t}\r\n}\r\n\r\nParam pitchshift_window_size(100,min=0.1,max=1000);\r\n\r\nParam pitchshift_blur(0.15,min=0,max=0.25);\r\n\r\nParam max_delay_in_seconds(10,min=1,max=20);\r\n\r\nParam pan_mode(0,min=0,max=4); // no panning, pingpong, l to r, pingpong r to l, l to r, r to l\r\n\r\nParam pan_rand(0,min=0,max=1); // how randomized panning should be\r\n\r\nParam loudness_mode(0,min=0,max=2); // normal, reverse (soft to loud), constant\r\n\r\nBuffer delayTimes;\r\n\r\nBuffer delayAmps;\r\n\r\nDelay delay_obj(SAMPLERATE*max_delay_in_seconds);\r\n\r\nHistory randL(1);\r\nHistory randR(1);\r\n\r\noutputL = 0;\r\noutputR = 0;\r\n\r\nnum_taps = dim(delayTimes);\r\n\r\n\r\nout1 = getTap(0, delay_obj, delayTimes, delayAmps, loudness_mode);\r\nout2 = getTap(1, delay_obj, delayTimes, delayAmps, loudness_mode);\r\nout3 = getTap(2, delay_obj, delayTimes, delayAmps, loudness_mode);\r\nout4 = getTap(3, delay_obj, delayTimes, delayAmps, loudness_mode);\r\nout5 = getTap(4, delay_obj, delayTimes, delayAmps, loudness_mode);\r\nout6 = getTap(5, delay_obj, delayTimes, delayAmps, loudness_mode);\r\nout7 = getTap(6, delay_obj, delayTimes, delayAmps, loudness_mode);\r\nout8 = getTap(7, delay_obj, delayTimes, delayAmps, loudness_mode);\r\nout9 = getTap(8, delay_obj, delayTimes, delayAmps, loudness_mode);\r\nout10 = getTap(9, delay_obj, delayTimes, delayAmps, loudness_mode);\r\n\r\ndelay_obj.write(in1);",
+					"fontface" : 0,
+					"fontname" : "<Monospaced>",
+					"fontsize" : 12.0,
+					"id" : "obj-6",
+					"maxclass" : "codebox",
+					"numinlets" : 1,
+					"numoutlets" : 10,
+					"outlettype" : [ "", "", "", "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 50.0, 167.0, 893.0, 394.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 50.0, 135.0, 28.0, 22.0 ],
+					"text" : "in 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-4",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 49.0, 575.0, 35.0, 22.0 ],
+					"text" : "out 1"
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"source" : [ "obj-1", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-10", 0 ],
+					"source" : [ "obj-6", 6 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-11", 0 ],
+					"source" : [ "obj-6", 7 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-12", 0 ],
+					"source" : [ "obj-6", 8 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"source" : [ "obj-6", 9 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"source" : [ "obj-6", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-4", 0 ],
+					"source" : [ "obj-6", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-5", 0 ],
+					"source" : [ "obj-6", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"source" : [ "obj-6", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"source" : [ "obj-6", 4 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"source" : [ "obj-6", 5 ]
+				}
+
+			}
+ ]
+	}
+
+}
